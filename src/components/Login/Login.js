@@ -112,7 +112,7 @@ e.preventDefault();
             <br/>
             <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser" id=""/>
             <label for="newUser">New User Sign up</label>
-            <form onSubmit={ handelSubmit}>
+            <form     >
              { newUser && <input name="name" type="text" onBlur={handleChange} placeholder="Your name"/>}
              <br></br>
                     <input type="text" name="email" placeholder="email" onBlur={handleChange}></input><br>

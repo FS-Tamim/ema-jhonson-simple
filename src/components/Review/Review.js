@@ -1,31 +1,33 @@
-import React, { useEffect } from 'react';
+    import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../../utilities/databaseManager';
-import fakeData from '../../fakeData';
 import Reviewitem from '../Reviewitem/Reviewitem';
 import Cart from '../Cart/Cart';
 import { Link, useHistory } from 'react-router-dom';
-
 import img from '../../images/giphy.gif'
 
 const Review = () => {
-    const [cart,setcart]=useState([]);
+    const [cart,setCart]=useState([]);
     const [orderPlace,setorderPlace]=useState(false);
 
     useEffect(()=> {
         const savedCart=getDatabaseCart();
         const productKeys=Object.keys(savedCart);
-        const cartProducts=productKeys.map(key=>{
-        const product=fakeData.find(pd=>pd.key===key);
-            product.quantity=savedCart[key];
-            return product;
-        });
-        setcart(cartProducts);
+
+        fetch('https://fathomless-castle-09052.herokuapp.com/productByKeys',{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(productKeys)
+        }).then(res=>res.json())
+        .then(data=>setCart(data))
     },[]);
+
     const removeItem=(productKey)=>{
         console.log("removed");
         const remainingProducts=cart.filter(pd=>pd.key!==productKey);
-        setcart(remainingProducts);
+        setCart(remainingProducts);
         removeFromDatabaseCart(productKey);
     }
     let thankyou;

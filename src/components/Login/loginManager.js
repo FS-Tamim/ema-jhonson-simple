@@ -64,8 +64,8 @@ export const createUserWithEmailandPassword=(name,email,password)=>{
     updateUserName(name);
     return newUserInfo;
     }).catch(error=> {
-        // Handle Errors here.
-        let errorMessage = error.message;
+      
+     let errorMessage = error.message;
         const newUserInfo = {};
         newUserInfo.error =errorMessage;
         newUserInfo.success =false;

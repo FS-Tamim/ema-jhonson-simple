@@ -7,7 +7,7 @@ const Cart = (props) => {
     let total=0;
     for(let i=0;i<cart.length;i++){
         let product=cart[i];
-        total=total+product.price*product.quantity;
+        total=total+product.price*(product.quantify || 1);;
     }
 
     let shipping=0;
@@ -30,6 +30,7 @@ const Cart = (props) => {
 
     return (
         <div>
+            <h1>This is order summmary please, place your order</h1>
             <h4>Order Summary</h4>
             <p>Item Ordered:{cart.length}</p>
     <p>Product price: {formatNUmber(total)}</p>
