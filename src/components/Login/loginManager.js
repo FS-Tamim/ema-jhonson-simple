@@ -19,7 +19,8 @@ export const handleGoogleSignIN=()=>{
         photo:photoURL,
         error:'',
         success:true
-        }
+        };
+        setUserToken();
         return signedInUser;
        
     }).catch(function(error) {
@@ -32,6 +33,13 @@ export const handleGoogleSignIN=()=>{
         var credential = error.credential;
       
       });  
+}
+const setUserToken = () => {
+  firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+    sessionStorage.setItem('token', idToken);
+  }).catch(function(error) {
+    // Handle error
+  });
 }
 
 
